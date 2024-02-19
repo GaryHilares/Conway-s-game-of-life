@@ -4,6 +4,8 @@ import model.GameOfLife;
 
 import java.util.Scanner;
 
+// Command line interface that allows user to interact and play with the Conway's game of life simulator.
+// Displays a list of cells (i.e. allows viewing a list of items) in edit and play modes.
 public class GameOfLifeCli {
     GameOfLife game;
     Scanner scanner;

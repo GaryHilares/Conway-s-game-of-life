@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Tests for the GameOfLife class in the model package.
 public class GameOfLifeTest {
     GameOfLife game1;
     GameOfLife game2;
@@ -125,5 +126,17 @@ public class GameOfLifeTest {
         game2.nextGeneration();
         assertEquals(game1Rep, game1.toString());
         assertEquals(game2Rep, game2.toString());
+    }
+
+    @Test
+    void testToggleAfterBrowsingGenerations() {
+        game1.nextGeneration();
+        assertEquals(2, game1.getGenerationNumber());
+        game1.nextGeneration();
+        assertEquals(3, game1.getGenerationNumber());
+        game1.previousGeneration();
+        assertEquals(2, game1.getGenerationNumber());
+        game1.toggle(0, 0);
+        assertEquals(1, game1.getGenerationNumber());
     }
 }

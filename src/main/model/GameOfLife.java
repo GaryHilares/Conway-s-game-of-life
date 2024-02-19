@@ -21,13 +21,13 @@ public class GameOfLife {
     // REQUIRES: 0 <= x < width, 0 <= y < height
     // MODIFIES: this
     // EFFECTS: Toggles the cell at (x, y) (kills it if it is alive, revives it otherwise);
-    //          //resets the timeline of generations (generations do not belong to the same timeline after the edition).
+    //          resets the timeline of generations (generations do not belong to the same timeline after the edition).
     public void toggle(int x, int y) {
         Generation generation = generations.get(currentGeneration);
         generation.toggle(x, y);
-        // generations.clear();
-        // generations.add(generation);
-        // currentGeneration = 0;
+        generations.clear();
+        generations.add(generation);
+        currentGeneration = 0;
     }
 
     // EFFECTS: Returns the 1-indexed generation number of the current generation.

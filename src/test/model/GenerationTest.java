@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// Tests for the Generation class in the model package.
 public class GenerationTest {
     Generation generation1;
     Generation generation2;

@@ -3,8 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Represents a game of Conway's Game of Life. It manages information about the current generation and the (arbitrarily
+// sized) timeline of generations that have appeared so far, allowing the user to "go back on time".
 public class GameOfLife {
-    private List<Generation> generations;
+    private final List<Generation> generations;
     private int currentGeneration;
 
     // REQUIRES: width > 0, height > 0
@@ -17,9 +20,14 @@ public class GameOfLife {
 
     // REQUIRES: 0 <= x < width, 0 <= y < height
     // MODIFIES: this
-    // EFFECTS: Toggles the cell at (x, y) (kills it if it is alive, revives it otherwise).
+    // EFFECTS: Toggles the cell at (x, y) (kills it if it is alive, revives it otherwise);
+    //          //resets the timeline of generations (generations do not belong to the same timeline after the edition).
     public void toggle(int x, int y) {
-        generations.get(currentGeneration).toggle(x, y);
+        Generation generation = generations.get(currentGeneration);
+        generation.toggle(x, y);
+        // generations.clear();
+        // generations.add(generation);
+        // currentGeneration = 0;
     }
 
     // EFFECTS: Returns the 1-indexed generation number of the current generation.

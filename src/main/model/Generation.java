@@ -1,5 +1,7 @@
 package model;
 
+// Represents a generation (i.e. a board state) within Conway's Game of Life.
+// It manages the information about what cells are alive and what cells are dead.
 public class Generation {
     private final int height;
     private final int width;

@@ -112,4 +112,18 @@ public class GameOfLifeTest {
         assertEquals(game1Rep, game1.toString());
         assertEquals(game2Rep, game2.toString());
     }
+
+    @Test
+    void testNextGenerationAfterPreviousGeneration() {
+        game1.nextGeneration();
+        game2.nextGeneration();
+        String game1Rep = game1.toString();
+        String game2Rep = game2.toString();
+        game1.previousGeneration();
+        game2.previousGeneration();
+        game1.nextGeneration();
+        game2.nextGeneration();
+        assertEquals(game1Rep, game1.toString());
+        assertEquals(game2Rep, game2.toString());
+    }
 }

@@ -3,10 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.JsonSerializable;
 
 // Represents a game of Conway's Game of Life. It manages information about the current generation and the (arbitrarily
 // sized) timeline of generations that have appeared so far, allowing the user to "go back on time".
-public class GameOfLife {
+public class GameOfLife /* implements JsonSerializable*/ {
     private final List<Generation> generations;
     private int currentGeneration;
 
@@ -65,4 +69,17 @@ public class GameOfLife {
     public void previousGeneration() {
         currentGeneration--;
     }
+
+    /*@Override
+    public JSONObject toJson() {
+        JSONObject gameOfLifeJson = new JSONObject();
+        gameOfLifeJson.put("currentGeneration", currentGeneration);
+
+        JSONArray generationsJson = new JSONArray();
+        for (Generation generation: generations) {
+            generationsJson.put(generation.toJson());
+        }
+        gameOfLifeJson.put("generations", generationsJson);
+        return gameOfLifeJson;
+    }*/
 }

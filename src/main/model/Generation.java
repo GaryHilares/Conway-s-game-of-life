@@ -1,8 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.JsonSerializable;
+
 // Represents a generation (i.e. a board state) within Conway's Game of Life.
 // It manages the information about what cells are alive and what cells are dead.
-public class Generation {
+public class Generation /*implements JsonSerializable*/ {
     private final int height;
     private final int width;
     private final boolean[][] board;
@@ -91,4 +95,13 @@ public class Generation {
         }
         return board[x][y];
     }
+
+    /*@Override
+    public JSONObject toJson() {
+        JSONObject generationJson = new JSONObject();
+        generationJson.put("width", width);
+        generationJson.put("height", height);
+        generationJson.put("board", toString());
+        return generationJson;
+    }*/
 }

@@ -1,34 +1,31 @@
 package ui.menu;
 
 import model.GameOfLife;
+import persistence.GameSaver;
 
+import java.io.IOException;
 import java.util.Scanner;
 
-public class PlayMenu {
+// Represents a menu that allows the user to play the Game of life.
+public class PlayMenu extends Menu {
     private GameOfLife game;
-    private Scanner scanner;
 
+    // MODIFIES: game, scanner
+    // EFFECTS: Creates a new PlayMenu that plays the given GameOfLife and reads input from the provided Scanner.
     public PlayMenu(GameOfLife game, Scanner scanner) {
+        super(scanner);
         this.game = game;
-        this.scanner = scanner;
     }
 
-    public NextMenuSignal run() {
-        NextMenuSignal ret = null;
-        printTitle();
-        while (ret == null) {
-            printPrompt();
-            String input = readInput();
-            ret = processInput(input);
-        }
-        return ret;
-    }
-
-    private void printTitle() {
+    // EFFECTS: Prints the menu's title.
+    @Override
+    protected void printTitle() {
         System.out.println("PLAY MODE");
     }
 
-    private void printPrompt() {
+    // EFFECTS: Prints the menu's prompt.
+    @Override
+    protected void printPrompt() {
         System.out.println(String.format("Generation %d:", game.getGenerationNumber()));
         System.out.println(game.toString());
         System.out.println("What action do you want to do?");
@@ -36,11 +33,11 @@ public class PlayMenu {
                 + "\"edit\" to go into edition mode (deletes previous generations), or \"quit\" to quit)");
     }
 
-    private String readInput() {
-        return scanner.nextLine();
-    }
-
-    private NextMenuSignal processInput(String input) {
+    // MODIFIES: this
+    // EFFECTS: Processes the user's input and calls the corresponding command;
+    //          throws IllegalArgumentException if command is not valid.
+    @Override
+    protected NextMenuSignal processInput(String input) throws IllegalArgumentException {
         if (input.equals("next") || input.equals("n")) {
             return onNext();
         } else if (input.equals("prev") || input.equals("p")) {
@@ -52,16 +49,19 @@ public class PlayMenu {
         } else if (input.equals("quit") || input.equals("q")) {
             return onQuit();
         } else {
-            System.out.println("That is not a valid command!");
-            return null;
+            throw new IllegalArgumentException("That is not a valid command!");
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Sets the game to the next generation. Always returns null.
     private NextMenuSignal onNext() {
         game.nextGeneration();
         return null;
     }
 
+    // MODIFIES: this
+    // EFFECTS: Sets the game to the previous generation. Always returns null.
     private NextMenuSignal onPrev() {
         if (game.getGenerationNumber() == 1) {
             System.out.println("There are no previous generations left.");
@@ -71,16 +71,24 @@ public class PlayMenu {
         return null;
     }
 
+    // EFFECTS: Sends the user to the edit menu. Always returns NextMenuSignal.EDIT_MENU.
     private NextMenuSignal onEdit() {
         return NextMenuSignal.EDIT_MENU;
     }
 
+    // EFFECTS: Saves the game to a file. Always returns null.
     private NextMenuSignal onSave() {
-        // TODO: Implement on save method.
-        // new GameSaver().save(game);
+        try {
+            new GameSaver().save(game);
+            System.out.println("Saved successfully!");
+        } catch (IOException e) {
+            System.out.println("Could not save game!");
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
+    // EFFECTS: Quits the game. Always returns NextMenuSignal.QUIT.
     private NextMenuSignal onQuit() {
         return NextMenuSignal.QUIT;
     }

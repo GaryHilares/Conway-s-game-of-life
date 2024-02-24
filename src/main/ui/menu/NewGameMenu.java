@@ -2,71 +2,55 @@ package ui.menu;
 
 import model.GameOfLife;
 
-import java.util.InputMismatchException;
+import java.security.InvalidParameterException;
 import java.util.Scanner;
 
-public class NewGameMenu {
+// Represent a menu that allows the user to create a new game of life.
+public class NewGameMenu extends Menu {
     private GameOfLife game;
-    private Scanner scanner;
 
+    // MODIFIES: scanner
+    // EFFECTS: Creates a new NewGameMenu that reads input from the provided Scanner.
     public NewGameMenu(Scanner scanner) {
-        this.scanner = scanner;
+        super(scanner);
     }
 
-    public NextMenuSignal run() {
-        NextMenuSignal ret = null;
-        printTitle();
-        while (ret == null) {
-            printPrompt();
-            try {
-                int[] input = readInput();
-                ret = processInput(input);
-            } catch (IllegalArgumentException e) {
-                System.out.println("The provided values were invalid.");
-                System.out.println(e.getMessage());
-            }
-        }
-        return ret;
-    }
-
+    // EFFECTS: Returns the game created by the user's interaction with this menu.
     public GameOfLife getGame() {
         return game;
     }
 
-    private void printTitle() {
+    // EFFECTS: Prints the title of the menu.
+    @Override
+    protected void printTitle() {
         System.out.println("SETUP MODE");
     }
 
-    private void printPrompt() {
+    // EFFECTS: Prints a prompt right before the user provides input.
+    @Override
+    protected void printPrompt() {
         System.out.println("How *long* and *tall* do you want your board to be?");
         System.out.println("(Choose two arbitrary integers x and y so that x > 0 and y > 0)");
     }
 
-    private int[] readInput() throws IllegalArgumentException {
-        try {
-            final int x = scanner.nextInt();
-            final int y = scanner.nextInt();
-
-            // Ignore newline if it exists.
-            if (scanner.hasNextLine()) {
-                scanner.nextLine();
-            }
-
-            if (x <= 0 || y <= 0) {
-                throw new IllegalArgumentException("A provided integer n does not fulfill n > 0.");
-            }
-            int[] ret = new int[2];
-            ret[0] = x;
-            ret[1] = y;
-            return ret;
-        } catch (InputMismatchException e) {
-            throw new IllegalArgumentException("The provided values are not integers!");
+    // EFFECTS: Reads the users' input and checks that it is two valid positive integers.
+    @Override
+    protected String readInput() throws IllegalArgumentException {
+        String input = super.readInput();
+        if (!input.matches("[1-9][0-9]* [1-9][0-9]*")) {
+            throw new InvalidParameterException("Values provided are not two positive integers!");
         }
+        return input;
     }
 
-    private NextMenuSignal processInput(int[] input) {
-        assert input.length == 2;
-        game = new GameOfLife(input[0], input[1]);
+    // MODIFIES: this
+    // EFFECTS: Processes the user input by creating a new Game of life with the provided dimensions;
+    //          always returns NextMenuSignal.EDIT_MENU.
+    @Override
+    protected NextMenuSignal processInput(String input) throws IllegalArgumentException {
+        int[] coords = parseCoordinates(input);
+        assert coords.length == 2;
+        game = new GameOfLife(coords[0], coords[1]);
         return NextMenuSignal.EDIT_MENU;
     }
 }

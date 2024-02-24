@@ -2,11 +2,9 @@ package model;
 
 import org.json.JSONObject;
 
-import persistence.JsonSerializable;
-
 // Represents a generation (i.e. a board state) within Conway's Game of Life.
 // It manages the information about what cells are alive and what cells are dead.
-public class Generation /*implements JsonSerializable*/ {
+public class Generation {
     private final int height;
     private final int width;
     private final boolean[][] board;
@@ -45,16 +43,23 @@ public class Generation /*implements JsonSerializable*/ {
         return height;
     }
 
-    // EFFECTS: Returns a string representation of the board.
-    public String toString() {
+    // TODO: Add tests with different "sep" arguments for this function.
+    // EFFECTS: Returns a string representation of the board with the given separator.
+    public String toString(String sep) {
         StringBuilder boardRep = new StringBuilder();
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
                 boardRep.append(board[x][y] ? "O" : ".");
             }
-            boardRep.append("\n");
+            boardRep.append(sep);
         }
         return boardRep.toString();
+    }
+
+    // TODO: Merge this function with its other overload.
+    // EFFECTS: Returns a string representation of the board.
+    public String toString() {
+        return toString("\n");
     }
 
     // EFFECTS: Computes and returns the next generation.
@@ -73,8 +78,7 @@ public class Generation /*implements JsonSerializable*/ {
         return new Generation(this.width, this.height, newBoard);
     }
 
-    // EFFECTS: Computes the number of alive neighbors.
-    //          Assumes that cells out of board are death.
+    // EFFECTS: Computes the number of alive neighbors, assuming that cells out of board are death.
     private int getNeighbors(int x, int y) {
         int aliveNeighbors = 0;
         for (int neighborX = x - 1; neighborX <= x + 1; neighborX++) {
@@ -96,12 +100,13 @@ public class Generation /*implements JsonSerializable*/ {
         return board[x][y];
     }
 
-    /*@Override
+    // TODO: Add tests for this function.
+    // EFFECTS: Returns a JSONObject representation of this generation of the game.
     public JSONObject toJson() {
         JSONObject generationJson = new JSONObject();
         generationJson.put("width", width);
         generationJson.put("height", height);
-        generationJson.put("board", toString());
+        generationJson.put("board", toString(""));
         return generationJson;
-    }*/
+    }
 }

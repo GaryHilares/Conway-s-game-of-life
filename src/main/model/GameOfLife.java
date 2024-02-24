@@ -6,11 +6,9 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import persistence.JsonSerializable;
-
 // Represents a game of Conway's Game of Life. It manages information about the current generation and the (arbitrarily
 // sized) timeline of generations that have appeared so far, allowing the user to "go back on time".
-public class GameOfLife /* implements JsonSerializable*/ {
+public class GameOfLife {
     private final List<Generation> generations;
     private int currentGeneration;
 
@@ -49,9 +47,16 @@ public class GameOfLife /* implements JsonSerializable*/ {
         return generations.get(currentGeneration).getHeight();
     }
 
+    // TODO: Add tests with different "sep" arguments for this function.
+    // EFFECTS: Returns a string representation of the board with the given separator.
+    public String toString(String sep) {
+        return generations.get(currentGeneration).toString(sep);
+    }
+
+    // TODO: Merge this function with its other overload.
     // EFFECTS: Returns a string representation of the board.
     public String toString() {
-        return generations.get(currentGeneration).toString();
+        return toString("\n");
     }
 
     // MODIFIES: this
@@ -70,7 +75,8 @@ public class GameOfLife /* implements JsonSerializable*/ {
         currentGeneration--;
     }
 
-    /*@Override
+    // TODO: Add tests for this function.
+    // EFFECTS: Returns a JSONObject representation of the game, including all generations.
     public JSONObject toJson() {
         JSONObject gameOfLifeJson = new JSONObject();
         gameOfLifeJson.put("currentGeneration", currentGeneration);
@@ -81,5 +87,5 @@ public class GameOfLife /* implements JsonSerializable*/ {
         }
         gameOfLifeJson.put("generations", generationsJson);
         return gameOfLifeJson;
-    }*/
+    }
 }

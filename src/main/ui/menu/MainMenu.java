@@ -1,65 +1,62 @@
 package ui.menu;
 
 import model.GameOfLife;
+import persistence.GameLoader;
 
 import java.util.Scanner;
 
-public class MainMenu {
-    GameOfLife game;
-    Scanner scanner;
+// Represents the main menu of the application, providing options to start a new game or load one.
+public class MainMenu extends Menu {
+    private GameOfLife game;
 
+    // MODIFIES: scanner
+    // EFFECTS: Creates a new MainMenu that reads input from the provided Scanner.
     public MainMenu(Scanner scanner) {
-        this.scanner = scanner;
+        super(scanner);
     }
 
-    public NextMenuSignal run() {
-        NextMenuSignal ret = null;
-        printTitle();
-        while (ret == null) {
-            printPrompt();
-            try {
-                String input = readInput();
-                ret = processInput(input);
-            } catch (IllegalArgumentException e) {
-                System.out.println("The provided values were invalid.");
-                System.out.println(e.getMessage());
-            }
-        }
-        return ret;
-    }
-
+    // EFFECTS: Returns the game loaded by the "load" option.
     public GameOfLife getGame() {
         return game;
     }
 
-    private void printTitle() {
+    // EFFECTS: Prints title of the main menu.
+    @Override
+    protected void printTitle() {
         System.out.println("MAIN MENU");
     }
 
-    private void printPrompt() {
+    // EFFECTS: Prints prompt right before the user provides input.
+    @Override
+    protected void printPrompt() {
         System.out.println("Would you like to load or start a new game?");
         System.out.println("(Type \"new\" to start a new game and \"load\" to load).");
     }
 
-    private String readInput() throws IllegalArgumentException {
-        String input = scanner.nextLine();
+    // EFFECTS: Reads the input from the user and checks that it is a valid action.
+    @Override
+    protected String readInput() throws IllegalArgumentException {
+        String input = super.readInput();
         if (!input.equals("new") && !input.equals("load")) {
             throw new IllegalArgumentException("The action provided does not exist!");
         }
         return input;
     }
 
-    private NextMenuSignal processInput(String input) throws IllegalArgumentException {
+    // MODIFIES: this
+    // EFFECTS: Processes the users' input by either sending him to the new game menu or by loading a game.
+    //          Returns either NextMenuSignal.NEW_GAME_MENU or NextMenuSignal.PLAY_MENU depending on the option
+    //          selected.
+    @Override
+    protected NextMenuSignal processInput(String input) throws IllegalArgumentException {
         if (input.equals("new")) {
             return NextMenuSignal.NEW_GAME_MENU;
         } else {
-            /*GameLoader loader = new GameLoader();
+            GameLoader loader = new GameLoader();
             if (!loader.existsSavedGame()) {
                 throw new IllegalArgumentException("Saved game does not exist!");
             }
-            game = loader.loadSavedGame();*/
-            System.out.println("Loaded game!");
-            game = new GameOfLife(5, 5);
+            game = loader.loadSavedGame();
             return NextMenuSignal.PLAY_MENU;
         }
     }

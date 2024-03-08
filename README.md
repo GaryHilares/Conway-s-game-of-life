@@ -21,8 +21,8 @@ arbitrary amount of cells to the game).
 - As a user, I want to be able to visualize the cells on my game ("View a list of items" condition).
 - As a user, I want to be able to set my own initial arrangement of cells.
 - As a user, I want to be able to browse forward and backwards through the generations of my game.
-- As a user, I want to be able to save my Conway's Game Of Life to a file, with all my generations included on it.
-- As a user, I want to be able to load my Conway's Game Of Life from the file in which I previously saved it.
+- As a user, I want to be able to save the state of my Conway's Game Of Life, with all my generations included on it.
+- As a user, I want to be able to load my Conway's Game Of Life in the state in which I previously saved it.
 
 ## Useful Notes
 ### Summary of the rules of Conway's game of Life

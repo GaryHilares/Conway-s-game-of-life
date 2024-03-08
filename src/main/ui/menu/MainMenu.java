@@ -1,8 +1,10 @@
 package ui.menu;
 
 import model.GameOfLife;
+import org.json.JSONException;
 import persistence.GameLoader;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 // Represents the main menu of the application, providing options to start a new game or load one.
@@ -53,11 +55,16 @@ public class MainMenu extends Menu {
             return NextMenuSignal.NEW_GAME_MENU;
         } else {
             GameLoader loader = new GameLoader();
-            if (!loader.existsSavedGame()) {
+            if (!loader.existsSavedGame("save")) {
                 throw new IllegalArgumentException("Saved game does not exist!");
             }
-            game = loader.loadSavedGame();
-            return NextMenuSignal.PLAY_MENU;
+            try {
+                game = loader.loadSavedGame("save");
+                return NextMenuSignal.PLAY_MENU;
+            } catch (IOException | JSONException e) {
+                System.out.println("There was an error while opening the file. Perhaps your saved file is corrupted?");
+                return null;
+            }
         }
     }
 }

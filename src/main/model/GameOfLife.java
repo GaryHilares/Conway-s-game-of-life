@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 // Represents a game of Conway's Game of Life. It manages information about the current generation and the (arbitrarily
@@ -20,6 +21,51 @@ public class GameOfLife {
         currentGeneration = 0;
     }
 
+    // REQUIRES: JSONObject represents a valid GameOfLife.
+    // EFFECTS: Builds a game of life with the JSONObject.
+    public GameOfLife(JSONObject source) throws JSONException {
+        generations = new ArrayList<>();
+        currentGeneration = source.getInt("currentGeneration");
+        JSONArray generationsJson = source.getJSONArray("generations");
+        for (int i = 0; i < generationsJson.length(); i++) {
+            JSONObject generationJson = generationsJson.getJSONObject(i);
+            generations.add(new Generation(generationJson));
+        }
+    }
+
+    // EFFECTS: Returns the 1-indexed generation number of the current generation.
+    public int getGenerationNumber() {
+        return currentGeneration + 1;
+    }
+
+    // EFFECTS: Returns height of the board.
+    public int getHeight() {
+        return generations.get(currentGeneration).getHeight();
+    }
+
+    // EFFECTS: Returns width of the board.
+    public int getWidth() {
+        return generations.get(currentGeneration).getWidth();
+    }
+
+    // EFFECTS: Returns a JSONObject representation of the game, including all generations.
+    public JSONObject toJson() {
+        JSONObject gameOfLifeJson = new JSONObject();
+        gameOfLifeJson.put("currentGeneration", currentGeneration);
+
+        JSONArray generationsJson = new JSONArray();
+        for (Generation generation: generations) {
+            generationsJson.put(generation.toJson());
+        }
+        gameOfLifeJson.put("generations", generationsJson);
+        return gameOfLifeJson;
+    }
+
+    // EFFECTS: Returns a string representation of the board with the given separator.
+    public String toString(String sep) {
+        return generations.get(currentGeneration).toString(sep);
+    }
+
     // REQUIRES: 0 <= x < width, 0 <= y < height
     // MODIFIES: this
     // EFFECTS: Toggles the cell at (x, y) (kills it if it is alive, revives it otherwise);
@@ -30,33 +76,6 @@ public class GameOfLife {
         generations.clear();
         generations.add(generation);
         currentGeneration = 0;
-    }
-
-    // EFFECTS: Returns the 1-indexed generation number of the current generation.
-    public int getGenerationNumber() {
-        return currentGeneration + 1;
-    }
-
-    // EFFECTS: Returns width of the board.
-    public int getWidth() {
-        return generations.get(currentGeneration).getWidth();
-    }
-
-    // EFFECTS: Returns height of the board.
-    public int getHeight() {
-        return generations.get(currentGeneration).getHeight();
-    }
-
-    // TODO: Add tests with different "sep" arguments for this function.
-    // EFFECTS: Returns a string representation of the board with the given separator.
-    public String toString(String sep) {
-        return generations.get(currentGeneration).toString(sep);
-    }
-
-    // TODO: Merge this function with its other overload.
-    // EFFECTS: Returns a string representation of the board.
-    public String toString() {
-        return toString("\n");
     }
 
     // MODIFIES: this
@@ -73,19 +92,5 @@ public class GameOfLife {
     // EFFECTS: Returns to the previous generation.
     public void previousGeneration() {
         currentGeneration--;
-    }
-
-    // TODO: Add tests for this function.
-    // EFFECTS: Returns a JSONObject representation of the game, including all generations.
-    public JSONObject toJson() {
-        JSONObject gameOfLifeJson = new JSONObject();
-        gameOfLifeJson.put("currentGeneration", currentGeneration);
-
-        JSONArray generationsJson = new JSONArray();
-        for (Generation generation: generations) {
-            generationsJson.put(generation.toJson());
-        }
-        gameOfLifeJson.put("generations", generationsJson);
-        return gameOfLifeJson;
     }
 }

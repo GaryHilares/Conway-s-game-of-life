@@ -27,7 +27,7 @@ public class PlayMenu extends Menu {
     @Override
     protected void printPrompt() {
         System.out.println(String.format("Generation %d:", game.getGenerationNumber()));
-        System.out.println(game.toString());
+        System.out.println(game.toString("\n"));
         System.out.println("What action do you want to do?");
         System.out.println("(\"next\" to go to next generation, \"prev\" to go to previous generation,"
                 + "\"edit\" to go into edition mode (deletes previous generations), or \"quit\" to quit)");
@@ -79,7 +79,7 @@ public class PlayMenu extends Menu {
     // EFFECTS: Saves the game to a file. Always returns null.
     private NextMenuSignal onSave() {
         try {
-            new GameSaver().save(game);
+            new GameSaver().save(game, "save");
             System.out.println("Saved successfully!");
         } catch (IOException e) {
             System.out.println("Could not save game!");

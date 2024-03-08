@@ -24,7 +24,7 @@ public class EditMenu extends Menu {
     // EFFECTS: Prints a prompt right before the user provides input.
     @Override
     protected void printPrompt() {
-        System.out.println(game.toString());
+        System.out.println(game.toString("\n"));
         System.out.println("Enter two integers x and y to toggle that tile, or \"done\":");
         System.out.println("(0 <= x < width, 0 <= y < height)");
     }

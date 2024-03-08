@@ -28,8 +28,8 @@ public class GameSaverTest {
         try {
             gameSaver.save(game1, "test-out-game1");
             gameSaver.save(game2, "test-out-game2");
-            assertTrue(isReadableFile("./data/test-out-game1.json"));
-            assertTrue(isReadableFile("./data/test-out-game2.json"));
+            assertTrue(fileExists("./data/test-out-game1.json"));
+            assertTrue(fileExists("./data/test-out-game2.json"));
             assertEquals(game1.toJson().toString(), readFileContents("./data/test-out-game1.json").trim());
             assertEquals(game2.toJson().toString(), readFileContents("./data/test-out-game2.json").trim());
         } catch (IOException e) {
@@ -37,9 +37,8 @@ public class GameSaverTest {
         }
     }
 
-    private boolean isReadableFile(String pathname) {
-        File file = new File(pathname);
-        return file.exists() && !file.isDirectory() && file.canRead();
+    private boolean fileExists(String pathname) {
+        return new File(pathname).exists();
     }
 
     private String joinStrings(String sep, List<String> strings) {

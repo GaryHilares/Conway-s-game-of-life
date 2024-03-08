@@ -15,8 +15,7 @@ public class GameLoader {
     // REQUIRES: name matches the following regex "[A-Za-z0-9-]{1,20}".
     // EFFECTS: Returns true if a saved game exists, false otherwise.
     public boolean existsSavedGame(String name) {
-        File file = new File("./data/" + name + ".json");
-        return file.exists() && !file.isDirectory() && file.canRead();
+        return new File("./data/" + name + ".json").exists();
     }
 
     // REQUIRES: name matches the following regex "[A-Za-z0-9-]{1,20}".

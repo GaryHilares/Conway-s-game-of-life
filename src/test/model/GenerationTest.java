@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Arrays;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 // Tests for the Generation class in the model package.
 public class GenerationTest {
@@ -104,6 +104,32 @@ public class GenerationTest {
         assertEquals(3, actualJsonForGen2.optInt("width"));
         assertEquals(5, actualJsonForGen2.optInt("height"));
         assertEquals(expectedStringForGen2, actualJsonForGen2.optString("board"));
+    }
+
+    @Test
+    public void testSafelyGetInBounds() {
+        generation1.toggle(4, 2);
+        assertTrue(generation1.safelyGet(4, 2));
+        assertFalse(generation1.safelyGet(2, 1));
+        assertFalse(generation1.safelyGet(1, 1));
+        generation2.toggle(2, 1);
+        assertTrue(generation2.safelyGet(2, 1));
+        assertFalse(generation2.safelyGet(1, 1));
+    }
+
+    @Test
+    public void testSafelyGetOutOfBounds() {
+        for (int x = 0; x < generation2.getWidth(); x++) {
+            for (int y = 0; y < generation2.getHeight(); y++) {
+                generation2.toggle(x, y);
+            }
+        }
+        assertFalse(generation2.safelyGet(-3, -2));
+        assertFalse(generation2.safelyGet(-1, 0));
+        assertFalse(generation2.safelyGet(1, -5));
+        assertFalse(generation2.safelyGet(3, 4));
+        assertFalse(generation2.safelyGet(2, 7));
+        assertFalse(generation2.safelyGet(5, 6));
     }
 
     private String joinStrings(String sep, List<String> strings) {

@@ -96,7 +96,7 @@ public class Generation {
     }
 
     // EFFECTS: Returns cell at (x, y), or false if (x, y) is out of bonds.
-    private boolean safelyGet(int x, int y) {
+    public boolean safelyGet(int x, int y) {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             return false;
         }

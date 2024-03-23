@@ -183,6 +183,32 @@ public class GameOfLifeTest {
         assertEquals(game2Rep, game2.toString(sep));
     }
 
+    @Test
+    public void testSafelyGetInBounds() {
+        game1.toggle(2, 1);
+        assertTrue(game1.safelyGet(2, 1));
+        assertFalse(game1.safelyGet(1, 1));
+        game2.toggle(0, 0);
+        assertTrue(game2.safelyGet(0, 0));
+        assertFalse(game2.safelyGet(1, 0));
+        assertFalse(game2.safelyGet(0, 1));
+    }
+
+    @Test
+    public void testSafelyGetOutOfBounds() {
+        for (int x = 0; x < game2.getWidth(); x++) {
+            for (int y = 0; y < game2.getHeight(); y++) {
+                game2.toggle(x, y);
+            }
+        }
+        assertFalse(game2.safelyGet(-3, -2));
+        assertFalse(game2.safelyGet(-1, 0));
+        assertFalse(game2.safelyGet(1, -5));
+        assertFalse(game2.safelyGet(3, 4));
+        assertFalse(game2.safelyGet(2, 7));
+        assertFalse(game2.safelyGet(5, 6));
+    }
+
     private String joinStrings(String sep, List<String> strings) {
         StringBuilder appender = new StringBuilder();
         for (String string: strings) {

@@ -1,4 +1,4 @@
-package ui;
+package ui.cli;
 
 // Initializes and runs a new command-line interface of the Conway's game of life simulator.
 public class Main {

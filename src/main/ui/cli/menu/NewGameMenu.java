@@ -1,4 +1,4 @@
-package ui.menu;
+package ui.cli.menu;
 
 import model.GameOfLife;
 

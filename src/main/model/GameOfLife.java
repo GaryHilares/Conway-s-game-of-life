@@ -93,4 +93,9 @@ public class GameOfLife {
     public void previousGeneration() {
         currentGeneration--;
     }
+
+    // EFFECTS: Returns the cell at (x, y) of the current generation, or false if (x, y) is out of bonds.
+    public boolean safelyGet(int x, int y) {
+        return generations.get(currentGeneration).safelyGet(x, y);
+    }
 }

@@ -1,13 +1,14 @@
-package ui;
+package ui.cli;
 
 import model.GameOfLife;
-import ui.menu.*;
+import ui.cli.menu.*;
 
 import java.util.Scanner;
 
 // Command line interface that allows user to interact and play with the Conway's game of life simulator.
 // Displays a list of cells (i.e. allows viewing a list of items) in edit and play modes.
 public class GameOfLifeCli {
+    // EFFECTS: Runs the main program loop, redirecting the user to the correct menu depending on the program state.
     public void run() {
         Scanner scanner = new Scanner(System.in);
         GameOfLife game = null;

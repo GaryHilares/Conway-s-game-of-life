@@ -48,6 +48,9 @@ arbitrary amount of cells to the game).
 - As a user, I want to be able to browse forward and backwards through the generations of my game.
 - As a user, I want to be able to save the state of my Conway's Game Of Life, with all my generations included on it.
 - As a user, I want to be able to load my Conway's Game Of Life in the state in which I previously saved it.
+- As a user, I want to be able to list all of my Xs in my Y in a single panel.
+- As a user, I want to be able to use this panel to move to any of my generations by clicking a button.
+- As a user, I want to be able to create new generations or reset them from this panel. 
 
 ## Useful Notes
 ### Summary of the rules of Conway's game of Life

@@ -132,6 +132,15 @@ public class GenerationTest {
         assertFalse(generation2.safelyGet(5, 6));
     }
 
+    @Test
+    public void testCountAliveCells() {
+        generation1.toggle(1, 1);
+        generation2.toggle(2, 2);
+        generation2.toggle(0, 4);
+        assertEquals(1, generation1.countAliveCells());
+        assertEquals(2, generation2.countAliveCells());
+    }
+
     private String joinStrings(String sep, List<String> strings) {
         StringBuilder appender = new StringBuilder();
         for (String string: strings) {

@@ -13,6 +13,31 @@ I expect this program to be used by students interested in cellular automata, li
 have fun experimenting with it. By interacting with this program, users might increase their interest in mathematics,
 computer science, or other formal sciences.
 
+# Instructions for Grader
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by:
+  1. Click on "New game".
+  2. Select an arbitrary height and widths and clickin on "Ok!".
+  3. Draw an initial setup.
+  4. Click on "Done".
+  5. Click on "Next generation"; or go to "Generations", and click "New Generation" or "Reset generations".
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by...
+  1. Click on "New game".
+  2. Select an arbitrary height and widths and clickin on "Ok!".
+  3. Draw an initial setup.
+  4. Click on "Done".
+  5. Go to "Generations", and click on one button on the list.
+- You can locate my visual component by:
+  1. Looking in the main menu, where there is an image that represents the logo of my game.
+- You can save the state of my application by:
+  1. Click on "New game".
+  2. Select an arbitrary height and widths and clickin on "Ok!".
+  3. Draw an initial setup.
+  4. Click on "Done".
+  5. Play as you like.
+  6. When you want to save, click on "Save". The game will be saved.
+- You can reload the state of my application by:
+  1. Click on "Load game". The game will be reloaded.
+
 ## User stories
 - As a user, I want to be able to generate an arbitrary number of generations to the game, which are computed 
 programmatically ("Add arbitrary Xs to Y" condition).

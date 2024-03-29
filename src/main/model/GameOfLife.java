@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -82,7 +83,7 @@ public class GameOfLife {
     // EFFECTS: Computes the next generation and moves the game state to it.
     public void nextGeneration() {
         if (currentGeneration + 1 >= generations.size()) {
-            generations.add(generations.get(currentGeneration).nextGeneration());
+            addGeneration();
         }
         currentGeneration++;
     }
@@ -97,5 +98,32 @@ public class GameOfLife {
     // EFFECTS: Returns the cell at (x, y) of the current generation, or false if (x, y) is out of bonds.
     public boolean safelyGet(int x, int y) {
         return generations.get(currentGeneration).safelyGet(x, y);
+    }
+
+    // EFFECTS: Return generation list as an unmodifiable list.
+    public List<Generation> getGenerations() {
+        return Collections.unmodifiableList(generations);
+    }
+
+    // REQUIRES: 1 <= generation <= getGenerations().size()
+    // MODIFIES: this
+    // EFFECT: Sets the current generation to the given 1-indexed generation.
+    public void setCurrentGeneration(int newGeneration) {
+        currentGeneration = newGeneration - 1;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Removes all of the generations in this game of life, except the first one.
+    public void resetGenerations() {
+        Generation initialGeneration = generations.get(0);
+        generations.clear();
+        generations.add(initialGeneration);
+        currentGeneration = 0;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Creates new generation at the end of the generation list.
+    public void addGeneration() {
+        generations.add(generations.get(generations.size() - 1).nextGeneration());
     }
 }

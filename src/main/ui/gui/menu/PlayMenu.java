@@ -53,13 +53,15 @@ public class PlayMenu extends Menu {
         return res;
     }
 
-    // EFFECTS: Creates a button box with "Edit", "Save", "Previous" and "Next" buttons.
+    // EFFECTS: Creates a button box with "Edit", "Save", "Previous", "Next" and "Main menu" buttons.
     private JPanel createButtonBox() {
         JPanel buttonBox = new JPanel();
-        buttonBox.add(createEditButton());
-        buttonBox.add(createSaveButton());
+        buttonBox.add(createGenerationsButton());
         buttonBox.add(createPrevButton());
         buttonBox.add(createNextButton());
+        buttonBox.add(createEditButton());
+        buttonBox.add(createSaveButton());
+        buttonBox.add(createMainMenuButton());
         return buttonBox;
     }
 
@@ -67,7 +69,6 @@ public class PlayMenu extends Menu {
     // EFFECTS: Creates a new "Edit" button.
     private JButton createEditButton() {
         JButton editButton = new JButton("Edit");
-        editButton.setBounds(0, 350, 100, 50);
         editButton.addActionListener(e -> goToMenu(new EditMenu(gui, game)));
         return editButton;
     }
@@ -75,7 +76,6 @@ public class PlayMenu extends Menu {
     // EFFECTS: Creates a new "Save" button.
     private JButton createSaveButton() {
         JButton saveButton = new JButton("Save");
-        saveButton.setBounds(100, 350, 100, 50);
         saveButton.addActionListener(e -> {
             try {
                 new GameSaver().save(game, "save");
@@ -91,7 +91,6 @@ public class PlayMenu extends Menu {
     // EFFECTS: Creates a new "Previous" button.
     private JButton createPrevButton() {
         JButton prevButton = new JButton("Previous");
-        prevButton.setBounds(200, 350, 100, 50);
         prevButton.addActionListener(e -> {
             if (game.getGenerationNumber() == 1) {
                 JOptionPane.showMessageDialog(view, "There are no previous generations!");
@@ -107,11 +106,26 @@ public class PlayMenu extends Menu {
     // EFFECTS: Creates a new "Next" button.
     private JButton createNextButton() {
         JButton nextButton = new JButton("Next");
-        nextButton.setBounds(300, 350, 100, 50);
         nextButton.addActionListener(e -> {
             game.nextGeneration();
             updateBoard();
         });
+        return nextButton;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Creates a new "Main menu" button.
+    private JButton createMainMenuButton() {
+        JButton nextButton = new JButton("Main menu");
+        nextButton.addActionListener(e -> gui.setMenu(new MainMenu(gui)));
+        return nextButton;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Creates a new "Generations" button.
+    private JButton createGenerationsButton() {
+        JButton nextButton = new JButton("Generations");
+        nextButton.addActionListener(e -> gui.setMenu(new GenerationListMenu(gui, game)));
         return nextButton;
     }
 

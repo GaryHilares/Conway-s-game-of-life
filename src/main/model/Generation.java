@@ -116,4 +116,17 @@ public class Generation {
         }
         return aliveNeighbors;
     }
+
+    // EFFECTS: Counts and produces the amount of alive cells in this generation.
+    public int countAliveCells() {
+        int aliveCells = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (board[x][y]) {
+                    aliveCells++;
+                }
+            }
+        }
+        return aliveCells;
+    }
 }

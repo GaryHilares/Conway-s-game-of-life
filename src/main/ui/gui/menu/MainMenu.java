@@ -5,7 +5,11 @@ import org.json.JSONException;
 import persistence.GameLoader;
 import ui.gui.GameOfLifeGui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.io.IOException;
@@ -24,7 +28,12 @@ public class MainMenu extends Menu {
     protected void addElements() {
         JButton newGameButton = createNewGameButton();
         JButton loadGameButton = createLoadGameButton();
-        layOutComponents(Arrays.asList(newGameButton, loadGameButton));
+        JLabel image = getImage();
+        if (image != null) {
+            layOutComponents(Arrays.asList(newGameButton, loadGameButton, image));
+        } else {
+            layOutComponents(Arrays.asList(newGameButton, loadGameButton));
+        }
     }
 
     // MODIFIES: this
@@ -66,5 +75,19 @@ public class MainMenu extends Menu {
             }
         });
         return loadGameButton;
+    }
+
+    // MODIFIES: this
+    // EFFECT: Loads and produces it, or shows an error.
+    private JLabel getImage() {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(new File("./src/game-of-life.png"));
+            Image image = bufferedImage.getScaledInstance(200, 200, BufferedImage.SCALE_SMOOTH);
+            JLabel label = new JLabel(new ImageIcon(image));
+            return label;
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(view, "Error loading the image!");
+            return null;
+        }
     }
 }

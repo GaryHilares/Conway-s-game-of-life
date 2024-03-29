@@ -209,6 +209,55 @@ public class GameOfLifeTest {
         assertFalse(game2.safelyGet(5, 6));
     }
 
+    @Test
+    void testAddGeneration() {
+        game1.toggle(1, 1);
+        game2.toggle(1, 1);
+        game2.toggle(2, 1);
+        game2.toggle(3, 1);
+        game1.addGeneration();
+        game2.addGeneration();
+        game2.addGeneration();
+        assertEquals(1, game1.getGenerationNumber());
+        assertEquals(1, game2.getGenerationNumber());
+        assertEquals(2, game1.getGenerations().size());
+        assertEquals(3, game2.getGenerations().size());
+        game1.setCurrentGeneration(2);
+        game2.setCurrentGeneration(3);
+        final String sep = "b";
+        final String expectedStringForGame1 = joinStrings(sep, Arrays.asList("...", "...", "...", "..."));
+        final String expectedStringForGame2 = joinStrings(sep, Arrays.asList(".....", ".OOO.", "....."));
+        assertEquals(expectedStringForGame1, game1.toString(sep));
+        assertEquals(expectedStringForGame2, game2.toString(sep));
+    }
+
+    @Test
+    void testSetCurrentGeneration() {
+        game1.addGeneration();
+        game1.addGeneration();
+        game1.addGeneration();
+        game1.setCurrentGeneration(3);
+        assertEquals(3, game1.getGenerationNumber());
+        game1.setCurrentGeneration(1);
+        assertEquals(1, game1.getGenerationNumber());
+        game1.setCurrentGeneration(2);
+        assertEquals(2, game1.getGenerationNumber());
+        game1.setCurrentGeneration(4);
+        assertEquals(4, game1.getGenerationNumber());
+    }
+
+    @Test
+    void testResetGenerations() {
+        Generation firstGeneration = game1.getGenerations().get(0);
+        game1.nextGeneration();
+        game1.nextGeneration();
+        game1.nextGeneration();
+        game1.resetGenerations();
+        assertEquals(1, game1.getGenerationNumber());
+        assertEquals(1, game1.getGenerations().size());
+        assertEquals(firstGeneration, game1.getGenerations().get(0));
+    }
+
     private String joinStrings(String sep, List<String> strings) {
         StringBuilder appender = new StringBuilder();
         for (String string: strings) {

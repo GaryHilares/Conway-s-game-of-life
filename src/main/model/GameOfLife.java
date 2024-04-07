@@ -109,12 +109,16 @@ public class GameOfLife {
     // MODIFIES: this
     // EFFECT: Sets the current generation to the given 1-indexed generation.
     public void setCurrentGeneration(int newGeneration) {
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Setting current generation to " + newGeneration + "."));
         currentGeneration = newGeneration - 1;
     }
 
     // MODIFIES: this
     // EFFECTS: Removes all of the generations in this game of life, except the first one.
     public void resetGenerations() {
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Resetting generations to first generation."));
         Generation initialGeneration = generations.get(0);
         generations.clear();
         generations.add(initialGeneration);
@@ -124,6 +128,8 @@ public class GameOfLife {
     // MODIFIES: this
     // EFFECTS: Creates new generation at the end of the generation list.
     public void addGeneration() {
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Creating new generation at the end of generations."));
         generations.add(generations.get(generations.size() - 1).nextGeneration());
     }
 }

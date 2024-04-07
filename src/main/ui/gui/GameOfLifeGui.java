@@ -23,6 +23,7 @@ public class GameOfLifeGui {
         this.setMenu(new MainMenu(this));
         frame.setSize(500, 500);
         frame.setVisible(true);
+        frame.addWindowListener(new LoggingWindowListener());
     }
 
     // REQUIRES: menu != null

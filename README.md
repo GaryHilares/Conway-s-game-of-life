@@ -13,16 +13,40 @@ I expect this program to be used by students interested in cellular automata, li
 have fun experimenting with it. By interacting with this program, users might increase their interest in mathematics,
 computer science, or other formal sciences.
 
+# Phase 4 Task 2
+```
+Sat Apr 06 19:30:34 PDT 2024
+Creating new generation at the end of generations.
+Sat Apr 06 19:30:35 PDT 2024
+Creating new generation at the end of generations.
+Sat Apr 06 19:30:35 PDT 2024
+Creating new generation at the end of generations.
+Sat Apr 06 19:30:35 PDT 2024
+Creating new generation at the end of generations.
+Sat Apr 06 19:30:35 PDT 2024
+Creating new generation at the end of generations.
+Sat Apr 06 19:30:39 PDT 2024
+Setting current generation to 1.
+Sat Apr 06 19:30:47 PDT 2024
+Resetting generations to first generation.
+Sat Apr 06 19:30:48 PDT 2024
+Setting current generation to 1.
+Sat Apr 06 19:30:49 PDT 2024
+Creating new generation at the end of generations.
+Sat Apr 06 19:30:49 PDT 2024
+Creating new generation at the end of generations.
+```
+
 # Instructions for Grader
 - You can generate the first required action related to the user story "adding multiple Xs to a Y" by:
   1. Click on "New game".
-  2. Select an arbitrary height and widths and clickin on "Ok!".
+  2. Select an arbitrary height and widths and click in on "Ok!".
   3. Draw an initial setup.
   4. Click on "Done".
   5. Click on "Next generation"; or go to "Generations", and click "New Generation" or "Reset generations".
 - You can generate the second required action related to the user story "adding multiple Xs to a Y" by...
   1. Click on "New game".
-  2. Select an arbitrary height and widths and clickin on "Ok!".
+  2. Select an arbitrary height and widths and click in on "Ok!".
   3. Draw an initial setup.
   4. Click on "Done".
   5. Go to "Generations", and click on one button on the list.
@@ -30,7 +54,7 @@ computer science, or other formal sciences.
   1. Looking in the main menu, where there is an image that represents the logo of my game.
 - You can save the state of my application by:
   1. Click on "New game".
-  2. Select an arbitrary height and widths and clickin on "Ok!".
+  2. Select an arbitrary height and widths and click in on "Ok!".
   3. Draw an initial setup.
   4. Click on "Done".
   5. Play as you like.

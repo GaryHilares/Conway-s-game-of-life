@@ -54,26 +54,38 @@ arbitrary amount of cells to the game).
 
 # Phase 4 Task 2
 ```
-Sat Apr 06 19:30:34 PDT 2024
+Mon Apr 08 02:53:36 PDT 2024
+Created new GameOfLife (10x10).
+Mon Apr 08 02:53:44 PDT 2024
 Creating new generation at the end of generations.
-Sat Apr 06 19:30:35 PDT 2024
+Mon Apr 08 02:53:44 PDT 2024
+Going to next generation (generation 1).
+Mon Apr 08 02:53:44 PDT 2024
 Creating new generation at the end of generations.
-Sat Apr 06 19:30:35 PDT 2024
-Creating new generation at the end of generations.
-Sat Apr 06 19:30:35 PDT 2024
-Creating new generation at the end of generations.
-Sat Apr 06 19:30:35 PDT 2024
-Creating new generation at the end of generations.
-Sat Apr 06 19:30:39 PDT 2024
+Mon Apr 08 02:53:44 PDT 2024
+Going to next generation (generation 2).
+Mon Apr 08 02:53:45 PDT 2024
+Converting 3 generations in game to JSON.
+Mon Apr 08 02:53:50 PDT 2024
+Loaded 3 generations from JSON to the game.
+Mon Apr 08 02:53:55 PDT 2024
+Going to previous generation (generation 1).
+Mon Apr 08 02:53:58 PDT 2024
+Resetting generations to first generation.
+Mon Apr 08 02:53:58 PDT 2024
 Setting current generation to 1.
-Sat Apr 06 19:30:47 PDT 2024
-Resetting generations to first generation
-Sat Apr 06 19:30:48 PDT 2024
+Mon Apr 08 02:54:00 PDT 2024
+Creating new generation at the end of generations.
+Mon Apr 08 02:54:00 PDT 2024
+Going to next generation (generation 1).
+Mon Apr 08 02:54:00 PDT 2024
+Creating new generation at the end of generations.
+Mon Apr 08 02:54:00 PDT 2024
+Going to next generation (generation 2).
+Mon Apr 08 02:54:02 PDT 2024
 Setting current generation to 1.
-Sat Apr 06 19:30:49 PDT 2024
-Creating new generation at the end of generations.
-Sat Apr 06 19:30:49 PDT 2024
-Creating new generation at the end of generations.
+Mon Apr 08 02:54:03 PDT 2024
+Going to next generation (generation 1).
 ```
 
 # Phase 4 Task 3

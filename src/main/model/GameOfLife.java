@@ -15,14 +15,18 @@ public class GameOfLife {
     private int currentGeneration;
 
     // REQUIRES: width > 0, height > 0
+    // MODIFIES: this, EventLog.getInstance()
     // EFFECTS: Builds a game of life with the given arbitrary dimensions.
     public GameOfLife(int width, int height) {
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Created new GameOfLife (" + width + "x" + height + ")."));
         generations = new ArrayList<>();
         generations.add(new Generation(width, height));
         currentGeneration = 0;
     }
 
     // REQUIRES: JSONObject represents a valid GameOfLife.
+    // MODIFIES: this, EventLog.getInstance()
     // EFFECTS: Builds a game of life with the JSONObject.
     public GameOfLife(JSONObject source) throws JSONException {
         generations = new ArrayList<>();
@@ -32,6 +36,8 @@ public class GameOfLife {
             JSONObject generationJson = generationsJson.getJSONObject(i);
             generations.add(new Generation(generationJson));
         }
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Loaded " + generationsJson.length() + " generations from JSON to the game."));
     }
 
     // EFFECTS: Returns the 1-indexed generation number of the current generation.
@@ -49,8 +55,11 @@ public class GameOfLife {
         return generations.get(currentGeneration).getWidth();
     }
 
+    // MODIFIES: EventLog.getInstance()
     // EFFECTS: Returns a JSONObject representation of the game, including all generations.
     public JSONObject toJson() {
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Converting " + generations.size() + " generations in game to JSON."));
         JSONObject gameOfLifeJson = new JSONObject();
         gameOfLifeJson.put("currentGeneration", currentGeneration);
 
@@ -79,19 +88,23 @@ public class GameOfLife {
         currentGeneration = 0;
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, EventLog.getInstance()
     // EFFECTS: Computes the next generation and moves the game state to it.
     public void nextGeneration() {
         if (currentGeneration + 1 >= generations.size()) {
             addGeneration();
         }
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Going to next generation (generation " + (currentGeneration + 1) + ")."));
         currentGeneration++;
     }
 
     // REQUIRES getGenerationNumber() > 1
-    // MODIFIES: this
+    // MODIFIES: this, EventLog.logEvent
     // EFFECTS: Returns to the previous generation.
     public void previousGeneration() {
+        EventLog eventLog = EventLog.getInstance();
+        eventLog.logEvent(new Event("Going to previous generation (generation " + (currentGeneration - 1) + ")."));
         currentGeneration--;
     }
 
@@ -106,7 +119,7 @@ public class GameOfLife {
     }
 
     // REQUIRES: 1 <= generation <= getGenerations().size()
-    // MODIFIES: this
+    // MODIFIES: this, EventLog.getInstance()
     // EFFECT: Sets the current generation to the given 1-indexed generation.
     public void setCurrentGeneration(int newGeneration) {
         EventLog eventLog = EventLog.getInstance();
@@ -114,7 +127,7 @@ public class GameOfLife {
         currentGeneration = newGeneration - 1;
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, EventLog.getInstance()
     // EFFECTS: Removes all of the generations in this game of life, except the first one.
     public void resetGenerations() {
         EventLog eventLog = EventLog.getInstance();
@@ -125,7 +138,7 @@ public class GameOfLife {
         currentGeneration = 0;
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, EventLog.getInstance()
     // EFFECTS: Creates new generation at the end of the generation list.
     public void addGeneration() {
         EventLog eventLog = EventLog.getInstance();

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for the Event class
- * EventTest class by UBC CPSC210 team
+ * EventTest class by UBC CPSC team
  */
 public class EventTest {
     private Event e;

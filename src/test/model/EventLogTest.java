@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests for the EventLog class
- * EventLogTest class by UBC CPSC210 team
+ * EventLogTest class by UBC CPSC team
  */
 public class EventLogTest {
     private Event e1;

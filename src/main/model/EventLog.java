@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 // Represents a single instance of a log of events, which is shared in the whole program.
-// EventLog class adapted from UBC CPSC210 team's EventLog class
+// EventLog class adapted from UBC CPSC team's EventLog class
 public class EventLog implements Iterable<Event> {
     private static EventLog theLog;
     private Collection<Event> events;

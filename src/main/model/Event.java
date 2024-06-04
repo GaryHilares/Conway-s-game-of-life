@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 // Represents an event that can be logged.
-// Event class adapted from UBC CPSC210 team's Event class
+// Event class adapted from UBC CPSC team's Event class
 public class Event {
     private static final int HASH_CONSTANT = 13;
     private Date dateLogged;

@@ -13,3 +13,6 @@ implement some games built on top of the Game of Life, but for now it is not a c
 I expect this program to be used by students interested in cellular automata, like me, or other people who just want to
 have fun experimenting with it. By interacting with this program, users might increase their interest in mathematics,
 computer science, or other formal sciences.
+
+## UML diagram
+![UML diagram](https://github.com/GaryHilares/Conway-s-game-of-life/blob/main/UML_Design_Diagram.png)

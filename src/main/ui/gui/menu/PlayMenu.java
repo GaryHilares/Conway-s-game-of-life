@@ -8,18 +8,21 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 
 // Represents a menu to interact with the user's Conway's game of life.
 public class PlayMenu extends Menu {
     private GameOfLife game;
     private JButton[][] buttons;
+    private boolean partyMode;
 
     // EFFECTS: Builds a new PlayMenu associated with the given GUI that displays the given game.
     public PlayMenu(GameOfLifeGui gui, GameOfLife game) {
         super(gui);
         this.game = game;
         this.buttons = new JButton[game.getWidth()][game.getHeight()];
+        this.partyMode = false;
         this.addElements();
     }
 
@@ -62,6 +65,7 @@ public class PlayMenu extends Menu {
         buttonBox.add(createEditButton());
         buttonBox.add(createSaveButton());
         buttonBox.add(createMainMenuButton());
+        buttonBox.add(createPartyModeToggleButton());
         return buttonBox;
     }
 
@@ -130,12 +134,37 @@ public class PlayMenu extends Menu {
     }
 
     // MODIFIES: this
+    // EFFECTS: Creates a new "Party mode" toggle button.
+    private JToggleButton createPartyModeToggleButton() {
+        JToggleButton partyModeToggleButton = new JToggleButton("Party mode");
+        partyModeToggleButton.addItemListener(e -> {
+            int state = e.getStateChange();
+            partyMode = state == ItemEvent.SELECTED;
+            updateBoard();
+        });
+        return partyModeToggleButton;
+    }
+
+    // MODIFIES: this
     // EFFECTS: Updates the button colors to make them match the game state.
     private void updateBoard() {
         for (int x = 0; x < game.getWidth(); x++) {
             for (int y = 0; y < game.getHeight(); y++) {
-                buttons[x][y].setBackground(game.safelyGet(x, y) ? Color.BLACK : Color.WHITE);
+                if (game.safelyGet(x, y)) {
+                    buttons[x][y].setBackground(partyMode ? getRandomPartyModeColor() : Color.BLACK);
+                } else {
+                    buttons[x][y].setBackground(Color.WHITE);
+                }
             }
         }
+    }
+
+    // EFFECTS: Produces a random color for party mode coloring.
+    private Color getRandomPartyModeColor() {
+        int predominantColor = (int)(Math.random() * 3);
+        double red = predominantColor == 0 ? Math.random() / 2d + 0.5d : Math.random();
+        double green = predominantColor == 1 ? Math.random() / 2d + 0.5d : Math.random();
+        double blue = predominantColor == 2 ? Math.random() / 2d + 0.5d : Math.random();
+        return new Color((float) red, (float) green, (float) blue);
     }
 }
